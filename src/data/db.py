@@ -1,5 +1,6 @@
 from src.models.vehiculo import Vehiculo
 from sqlmodel import SQLModel, Session, create_engine
+import os
 
 db_user: str = "quevedo"  
 db_password: str =  "1234"
@@ -8,7 +9,7 @@ db_port: int = 3306
 db_name: str = "vehiculosdb" 
 
 DATABASE_URL = f"mysql+pymysql://{db_user}:{db_password}@{db_server}:{db_port}/{db_name}"
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(os.getenv("db_url",DATABASE_URL), echo=True)
 
 def get_session():
     with Session(engine) as session:
